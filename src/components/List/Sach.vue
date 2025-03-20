@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    contacts: { type: Array, default: [] },
+    sachs: { type: Array, default: [] },
     activeIndex: { type: Number, default: -1 },
   },
   emits: ["update:activeIndex"],
@@ -12,16 +12,17 @@ export default {
   },
 };
 </script>
+
 <template>
   <ul class="list-group">
     <li
       class="list-group-item"
-      v-for="(contact, index) in contacts"
-      :key="contact._id"
+      v-for="(sach, index) in sachs"
+      :key="sach.MASACH"
       :class="{ active: index === activeIndex }"
       @click="updateActiveIndex(index)"
     >
-      {{ contact.name }}
+      {{ sach.TENSACH }} - {{ sach.TACGIA }}
     </li>
   </ul>
 </template>

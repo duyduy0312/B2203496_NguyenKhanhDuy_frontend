@@ -1,16 +1,16 @@
 <template>
   <div class="page row">
     <div class="col-md-10">
-      <InputSearch v-model="searchText" />
+      <InputSearch v-model="searchText" @submit="performSearch" />
     </div>
     <div class="mt-3 col-md-6">
       <h4>
-        Danh bạ
+        Danh sách độc giả
         <i class="fas fa-address-book"></i>
       </h4>
-      <ContactList
-        v-if="filteredContactsCount > 0"
-        :contacts="filteredContacts"
+      <DocGiaList
+        v-if="filteredDocGiasCount > 0"
+        :docgias="filteredDocGias"
         v-model:activeIndex="activeIndex"
       />
       <p v-else>Không có liên hệ nào.</p>
@@ -18,25 +18,25 @@
         <button class="btn btn-sm btn-primary" @click="refreshList()">
           <i class="fas fa-redo"></i> Làm mới
         </button>
-        <button class="btn btn-sm btn-success" @click="goToAddContact">
+        <button class="btn btn-sm btn-success" @click="goToAddDocGia()">
           <i class="fas fa-plus"></i> Thêm mới
         </button>
-        <button class="btn btn-sm btn-danger" @click="removeAllContacts">
+        <button class="btn btn-sm btn-danger" @click="removeAllDocGias()">
           <i class="fas fa-trash"></i> Xóa tất cả
         </button>
       </div>
     </div>
     <div class="mt-3 col-md-6">
-      <div v-if="activeContact">
+      <div v-if="activeDocGia">
         <h4>
           Chi tiết Liên hệ
           <i class="fas fa-address-card"></i>
         </h4>
-        <ContactCard :contact="activeContact" />
+        <DocGiaCard :docgia="activeDocGia" />
         <router-link
           :to="{
-            name: 'contact.edit',
-            params: { id: activeContact._id },
+            name: 'docgia.edit',
+            params: { id: activeDocGia._id },
           }"
         >
           <span class="mt-2 badge badge-warning">
@@ -49,19 +49,19 @@
 </template>
 
 <script>
-import ContactCard from "@/components/ContactCard.vue";
+import DocGiaCard from "@/components/Card/DocGia.vue";
 import InputSearch from "@/components/InputSearch.vue";
-import ContactList from "@/components/ContactList.vue";
-import ContactService from "@/services/contact.service";
+import DocGiaList from "@/components/List/DocGia.vue";
+import DocGiaService from "@/services/docgia.service";
 export default {
   components: {
-    ContactCard,
+    DocGiaCard,
     InputSearch,
-    ContactList,
+    DocGiaList,
   },
   data() {
     return {
-      contacts: [],
+      docgias: [],
       activeIndex: -1,
       searchText: "",
     };
@@ -75,52 +75,58 @@ export default {
   },
   computed: {
     // Chuyển các đối tượng contact thành chuỗi để tiện cho tìm kiếm.
-    contactStrings() {
-      return this.contacts.map((contact) => {
-        const { name, email, address, phone } = contact;
-        return [name, email, address, phone].join("");
+    docgiaStrings() {
+      return this.docgias.map((docgia) => {
+        return Object.values(docgia).join("").toLowerCase();
       });
     },
+
     // Trả về các contact có chứa thông tin cần tìm kiếm.
-    filteredContacts() {
-      if (!this.searchText) return this.contacts;
-      return this.contacts.filter((_contact, index) =>
-        this.contactStrings[index].includes(this.searchText)
+    filteredDocGias() {
+      if (!this.searchText) return this.docgias;
+      const searchLower = this.searchText.toLowerCase();
+      return this.docgias.filter((_docgia, index) =>
+        this.docgiaStrings[index].includes(searchLower)
       );
     },
-    activeContact() {
+
+    activeDocGia() {
       if (this.activeIndex < 0) return null;
-      return this.filteredContacts[this.activeIndex];
+      return this.filteredDocGias[this.activeIndex];
     },
-    filteredContactsCount() {
-      return this.filteredContacts.length;
+    filteredDocGiasCount() {
+      return this.filteredDocGias.length;
     },
   },
   methods: {
-    async retrieveContacts() {
+    async retrieveDocGias() {
       try {
-        this.contacts = await ContactService.getAll();
+        this.docgias = await DocGiaService.getAll();
       } catch (error) {
         console.log(error);
       }
     },
     refreshList() {
-      this.retrieveContacts();
+      this.retrieveDocGias();
       this.activeIndex = -1;
     },
-    async removeAllContacts() {
-      if (confirm("Bạn muốn xóa tất cả Liên hệ?")) {
+    async removeAllDocGias() {
+      if (confirm("Bạn muốn xóa tất cả Độc giả?")) {
         try {
-          await ContactService.deleteAll();
+          await DocGiaService.deleteAll();
           this.refreshList();
         } catch (error) {
           console.log(error);
         }
       }
     },
-    goToAddContact() {
-      this.$router.push({ name: "contact.add" });
+    goToAddDocGia() {
+      this.$router.push({ name: "docgia.add" });
     },
+    performSearch() {
+      // Có thể thêm logic tìm kiếm bổ sung ở đây nếu cần
+      console.log("Performing search with:", this.searchText);
+    }
   },
   mounted() {
     this.refreshList();

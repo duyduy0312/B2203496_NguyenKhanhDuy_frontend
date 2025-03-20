@@ -1,34 +1,34 @@
 <template>
-  <div v-if="contact" class="page">
+  <div v-if="docgia" class="page">
     <h4>Hiệu chỉnh Liên hệ</h4>
-    <ContactForm
-      :contact="contact"
-      @submit:contact="updateContact"
-      @delete:contact="deleteContact"
+    <DocGiaForm
+      :docgia="docgia"
+      @submit:docgia="updateDocGia"
+      @delete:docgia="deleteDocGia"
     />
     <p>{{ message }}</p>
   </div>
 </template>
 <script>
-import ContactForm from "@/components/ContactForm.vue";
-import ContactService from "@/services/contact.service";
+import DocGiaForm from "@/components/Form/DocGia.vue";
+import DocGiaService from "@/services/docgia.service";
 export default {
   components: {
-    ContactForm,
+    DocGiaForm,
   },
   props: {
     id: { type: String, required: true },
   },
   data() {
     return {
-      contact: null,
+      docgia: null,
       message: "",
     };
   },
   methods: {
-    async getContact(id) {
+    async getDocGia(id) {
       try {
-        this.contact = await ContactService.get(id);
+        this.docgia = await DocGiaService.get(id);
       } catch (error) {
         console.log(error);
 
@@ -43,20 +43,20 @@ export default {
         });
       }
     },
-    async updateContact(data) {
+    async updateDocGia(data) {
       try {
-        await ContactService.update(this.contact._id, data);
-        alert("Liên hệ được cập nhật thành công.");
-        this.$router.push({ name: "contactbook" });
+        await DocGiaService.update(this.docgia._id, data);
+        alert("Độc giả được cập nhật thành công.");
+        this.$router.push({ name: "danhsachdocgia" });
       } catch (error) {
         console.log(error);
       }
     },
-    async deleteContact() {
-      if (confirm("Bạn muốn xóa Liên hệ này?")) {
+    async deleteDocGia() {
+      if (confirm("Bạn muốn xóa Độc giả này?")) {
         try {
-          await ContactService.delete(this.contact._id);
-          this.$router.push({ name: "contactbook" });
+          await DocGiaService.delete(this.docgia._id);
+          this.$router.push({ name: "danhsachdocgia" });
         } catch (error) {
           console.log(error);
         }
@@ -64,7 +64,7 @@ export default {
     },
   },
   created() {
-    this.getContact(this.id);
+    this.getDocGia(this.id);
     this.message = "";
   },
 };
