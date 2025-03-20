@@ -30,13 +30,14 @@
       />
       <ErrorMessage name="TEN" class="error-feedback" />
     </div>
-    <div class="form-group">
+     <div class="form-group">
       <label for="NGAYSINH">Ngày sinh</label>
       <Field
         name="NGAYSINH"
-        type="date"
+        type="text"
         class="form-control"
-        v-model="docGiaLocal.NGAYSINH"
+        v-model="formattedNgaySinh"
+        placeholder="DD/MM/YYYY"
       />
       <ErrorMessage name="NGAYSINH" class="error-feedback" />
     </div>
@@ -103,6 +104,7 @@
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { parse, format, isValid } from 'date-fns';
 
 export default {
   components: {

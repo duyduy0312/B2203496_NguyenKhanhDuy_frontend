@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import SachForm from "@/components/Form/Sach.vue";
+import SachForm from "@/components/Form/sach.form.vue";
 import SachService from "@/services/sach.service";
 
 export default {

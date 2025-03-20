@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import SachCard from "@/components/Card/Sach.vue";
+import SachCard from "@/components/Card/sach.card.vue";
 import InputSearch from "@/components/InputSearch.vue";
-import SachList from "@/components/List/Sach.vue";
+import SachList from "@/components/List/sach.list.vue";
 import SachService from "@/services/sach.service";
 
 export default {

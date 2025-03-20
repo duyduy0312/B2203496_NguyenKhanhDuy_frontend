@@ -26,6 +26,13 @@
           <i class="fas fa-address-book"></i>
         </router-link>
       </li>
+      <li class="nav-item">
+        <router-link :to="{ name: 'theodoimuonsach' }" class="nav-link">
+          Theo dõi mượn sách
+          <i class="fas fa-address-book"></i>
+        </router-link>
+      </li>
+
     </div>
   </nav>
 </template>

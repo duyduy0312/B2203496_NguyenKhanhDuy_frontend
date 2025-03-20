@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import NhanVienForm from "@/components/Form/NhanVien.vue";
+import NhanVienForm from "@/components/Form/nhanvien.form.vue";
 import NhanVienService from "@/services/nhanvien.service";
 
 export default {

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import DocGiaForm from "@/components/Form/DocGia.vue";
+import DocGiaForm from "@/components/Form/docgia.form.vue";
 import DocGiaService from "@/services/docgia.service";
 
 export default {

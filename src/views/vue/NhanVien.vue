@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import NhanVienCard from "@/components/Card/NhanVien.vue";
+import NhanVienCard from "@/components/Card/nhanvien.card.vue";
 import InputSearch from "@/components/InputSearch.vue";
-import NhanVienList from "@/components/List/NhanVien.vue";
+import NhanVienList from "@/components/List/nhanvien.list.vue";
 import NhanVienService from "@/services/nhanvien.service";
 
 export default {

@@ -1,34 +1,36 @@
 <template>
-  <div v-if="docgia" class="page">
-    <h4>Hiệu chỉnh Liên hệ</h4>
-    <DocGiaForm
-      :docgia="docgia"
-      @submit:docgia="updateDocGia"
-      @delete:docgia="deleteDocGia"
+  <div v-if="sach" class="page">
+    <h4>Hiệu chỉnh Sách</h4>
+    <SachForm
+      :sach="sach"
+      @submit:sach="updateSach"
+      @delete:sach="deleteSach"
     />
     <p>{{ message }}</p>
   </div>
 </template>
+
 <script>
-import DocGiaForm from "@/components/Form/DocGia.vue";
-import DocGiaService from "@/services/docgia.service";
+import SachForm from "@/components/Form/sach.form.vue";
+import SachService from "@/services/sach.service";
+
 export default {
   components: {
-    DocGiaForm,
+    SachForm,
   },
   props: {
     id: { type: String, required: true },
   },
   data() {
     return {
-      docgia: null,
+      sach: null,
       message: "",
     };
   },
   methods: {
-    async getDocGia(id) {
+    async getSach(id) {
       try {
-        this.docgia = await DocGiaService.get(id);
+        this.sach = await SachService.get(id);
       } catch (error) {
         console.log(error);
 
@@ -43,20 +45,20 @@ export default {
         });
       }
     },
-    async updateDocGia(data) {
+    async updateSach(data) {
       try {
-        await DocGiaService.update(this.docgia._id, data);
-        alert("Độc giả được cập nhật thành công.");
-        this.$router.push({ name: "danhsachdocgia" });
+        await SachService.update(this.sach._id, data);
+        alert("Sách được cập nhật thành công.");
+        this.$router.push({ name: "danhsachsach" });
       } catch (error) {
         console.log(error);
       }
     },
-    async deleteDocGia() {
-      if (confirm("Bạn muốn xóa Độc giả này?")) {
+    async deleteSach() {
+      if (confirm("Bạn muốn xóa sách này?")) {
         try {
-          await DocGiaService.delete(this.docgia._id);
-          this.$router.push({ name: "danhsachdocgia" });
+          await SachService.delete(this.sach.MASACH);
+          this.$router.push({ name: "danhsachsach" });
         } catch (error) {
           console.log(error);
         }
@@ -64,7 +66,7 @@ export default {
     },
   },
   created() {
-    this.getDocGia(this.id);
+    this.getSach(this.id);
     this.message = "";
   },
 };

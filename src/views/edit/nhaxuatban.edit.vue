@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import NhaXuatBanForm from "@/components/Form/NhaXuatBan.vue";
+import NhaXuatBanForm from "@/components/Form/nhaxuatban.form.vue";
 import NhaXuatBanService from "@/services/nhaxuatban.service";
 
 export default {

@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import NhaXuatBanCard from "@/components/Card/NhaXuatBan.vue";
+import NhaXuatBanCard from "@/components/Card/nhaxuatban.card.vue";
 import InputSearch from "@/components/InputSearch.vue";
-import NhaXuatBanList from "@/components/List/NhaXuatBan.vue";
+import NhaXuatBanList from "@/components/List/nhaxuatban.list.vue";
 import NhaXuatBanService from "@/services/nhaxuatban.service";
 
 export default {

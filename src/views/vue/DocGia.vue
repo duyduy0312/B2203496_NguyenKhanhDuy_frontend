@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import DocGiaCard from "@/components/Card/DocGia.vue";
+import DocGiaCard from "@/components/Card/docgia.card.vue";
 import InputSearch from "@/components/InputSearch.vue";
-import DocGiaList from "@/components/List/DocGia.vue";
+import DocGiaList from "@/components/List/docgia.list.vue";
 import DocGiaService from "@/services/docgia.service";
 export default {
   components: {

@@ -1,13 +1,16 @@
 <template>
   <div v-if="nhaxuatban" class="page">
     <h4>Thêm Nhà xuất bản</h4>
-    <NhaXuatBanForm :nhaxuatban="nhaxuatban" @submit:nhaxuatban="addNhaXuatBan" />
+    <NhaXuatBanForm
+      :nhaxuatban="nhaxuatban"
+      @submit:nhaxuatban="addNhaXuatBan"
+    />
     <p>{{ message }}</p>
   </div>
 </template>
 
 <script>
-import NhaXuatBanForm from "@/components/Form/NhaXuatBan.vue";
+import NhaXuatBanForm from "@/components/Form/nhaxuatban.form.vue";
 import NhaXuatBanService from "@/services/nhaxuatban.service";
 
 export default {
